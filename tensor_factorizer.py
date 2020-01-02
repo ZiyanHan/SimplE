@@ -89,6 +89,47 @@ class TensorFactorizer:
 			if(itr % self.params.save_each == 0 and itr >= self.params.save_after):
 				self.save_model(itr)
 
+	def predict(self):
+		head = []
+		rel = []
+		tail = []
+		with open("./wn18/test_v2.txt", "r") as f:
+			data = f.readlines()
+		print(data)
+		for line in data:
+			line = line.strip("\n").split("\t")
+			for i in range(18):
+				head.append(int(line[0]))
+				rel.append(i)
+				tail.append(int(line[2]))
+		pred = self.sess.run(self.dissims, feed_dict={self.head: head, self.rel: rel, self.tail: tail})
+		np.savetxt("./wn18/predictions.txt", pred)
+
+	# def predict_v2(self):
+	# 	import pandas as pd
+	# 	data = np.loadtxt("wn18/test.txt", delimiter="\t", dtype=np.str)
+	# 	head = []
+	# 	rel = []
+	# 	tail = []
+	# 	for line in data:
+	# 		for i in range(18):
+	# 			head.append(self.reader.en2id[line[0]])
+	# 			rel.append(i)
+	# 			tail.append(self.reader.ent2id[line[2]])
+	# 	pred = self.sess.run(self.dissims, feed_dict={self.head: head, self.rel: rel, self.tail: tail})
+	# 	pred = np.reshape(pred, (5000, 18))
+	# 	df = pd.DataFrame(pred)
+	# 	cols = []
+	# 	id2rel = dict((v,k) for k,v in self.reader.rel2id.items())
+	# 	# id2en = dict((v,k) for k,v in self.reader.en2id.items())
+	# 	for i in range(18):
+	# 		cols.append(id2rel[i])
+	# 	df.columns = cols
+	# 	df.insert(0, "tail", tail)
+	# 	df.insert(0, "head", head)
+	# 	df.to_csv("wn18/predictions_v2.csv", index=False)
+
+
 	def test(self, triples):
 		r_mrr = f_mrr = r_hit1 = r_hit3 = r_hit10 = f_hit1 = f_hit3 = f_hit10 = 0.0
 
@@ -131,6 +172,13 @@ class TensorFactorizer:
 		f_mrr   /= (2.0 * len(triples))
 
 		return r_mrr, r_hit1, r_hit3, r_hit10, f_mrr, f_hit1, f_hit3, f_hit10
+
+
+if __name__ == "__main__":
+	from params import Params
+	p = Params()
+	tf = TensorFactorizer("SimplE_ignr", p)
+	tf.predict_v2()
 
 
 

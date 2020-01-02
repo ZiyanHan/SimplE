@@ -1,0 +1,5 @@
+345	_member_of_domain_usage	222
+342	_verb_group	356
+222	_hyponym	345
+2345	_member_of_domain_region	8534
+6854	_hyponym	5678

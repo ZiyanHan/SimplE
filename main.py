@@ -14,25 +14,30 @@ def getopts(arguments):
 current_models = ["SimplE_ignr", "SimplE_avg", "ComplEx", "TransE"]
 current_datasets = ["wn18", "fb15k"]
 
-opts = getopts(argv)
-if not "-m" in opts:
-	print("Please specify the model name using -m.")
-	exit()
-if not opts["-m"] in current_models:
-	print("Model name not recognized.")
-	exit()
+# opts = getopts(argv)
+# if not "-m" in opts:
+# 	print("Please specify the model name using -m.")
+# 	exit()
+# if not opts["-m"] in current_models:
+# 	print("Model name not recognized.")
+# 	exit()
+#
+# if not "-d" in opts:
+# 	print("Please specify the dataset using -d.")
+# 	exit()
+#
+# if not opts["-d"] in current_datasets:
+# 	print("Dataset not recognized.")
+# 	exit()
 
-if not "-d" in opts:
-	print("Please specify the dataset using -d.")
-	exit()
+# model_name = opts["-m"]
+# dataset = opts["-d"]
 
-if not opts["-d"] in current_datasets:
-	print("Dataset not recognized.")
-	exit()
+dataset = "moreno_blogs"
+model_name = "SimplE_ignr"
 
-model_name = opts["-m"]
-dataset = opts["-d"]
 params = Params()
+params.edge_type_num = 1
 params.use_default(dataset=dataset, model=model_name) 
 tt = TrainerTester(model_name=model_name, params=params, dataset=dataset)
 tt.train_earlystop_test()

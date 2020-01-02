@@ -1,0 +1,6 @@
+main.py文件里的
+
+36行：dataset
+37行：model_name
+
+40行：param.edge_typa_num

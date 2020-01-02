@@ -64,11 +64,16 @@ class Reader:
 		for file in ["train", "valid", "test"]:
 			with open(directory + file + ".txt", "r") as f:
 				for line in f.readlines():
-					head, rel, tail = line.strip().split("\t")
+					try:
+						head, rel, tail = line.strip().split("\t")
+					except:
+						print(line)
 					head_id = self.get_add_ent_id(head)
 					rel_id = self.get_add_rel_id(rel)
 					tail_id = self.get_add_ent_id(tail)
 					self.triples[file].append((head_id, rel_id, tail_id))
+		self.triples["valid"] = self.triples["valid"]
+		self.triples["test"] = self.triples["test"]
 
 	def rand_ent_except(self, except_ent):
 		rand_ent = random.randint(0, self.num_ent() - 1)

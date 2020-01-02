@@ -55,6 +55,18 @@ class TrainerTester:
 		self.test_model_on(itr=itr, valid_or_test="test")
 		self.model.close_session()
 
+	def start_predict(self, itr):
+		tf.reset_default_graph()
+		self.model.setup_weights()
+		self.model.setup_loader()
+		self.model.create_test_placeholders()
+		self.model.gather_test_embeddings()
+		self.model.create_test_model()
+		self.model.create_session()
+		self.model.load_session(itr)
+
+		self.model.predict_v2()
+
 	def train_earlystop_test(self):
 		print("Training " + self.model.model_name + " on " + self.model.dataset + " with emb_size = " + str(self.model.params.emb_size) + ", learning rate = " + str(self.model.params.learning_rate) + " neg_ratio = " + str(self.model.params.neg_ratio) + " alpha = " + str(self.model.params.alpha))
 		self.train()
@@ -65,5 +77,6 @@ class TrainerTester:
 		print("Testing " + self.model.model_name + " on " + self.model.dataset + " with emb_size = " + str(self.model.params.emb_size) + ", best itr = " + best_itr)
 		self.test(itr=best_itr)
 
+		self.start_predict(best_itr)
 
 	

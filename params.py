@@ -18,7 +18,7 @@ class Params:
 
 	def use_default(self, dataset, model):
 		if dataset == "wn18" and model == "SimplE_ignr":
-			self.set_values(lr=0.1, alpha=0.001, bsize=1415, max_itr=1000, emb_size=200, neg_ratio=1, save_after=50, save_each=50)
+			self.set_values(lr=0.1, alpha=0.001, bsize=1415, max_itr=500, emb_size=200, neg_ratio=1, save_after=50, save_each=50)
 		elif dataset == "wn18" and model == "SimplE_avg":
 			self.set_values(lr=0.1, alpha=0.03, bsize=1415, max_itr=1000, emb_size=200, neg_ratio=1, save_after=50, save_each=50)
 		elif dataset == "wn18" and model == "ComplEx":
@@ -36,7 +36,7 @@ class Params:
 			self.set_values(lr=0.001, alpha=0.25, gamma=1.0, p_norm=1, bsize=4832, max_itr=2000, emb_size=50, save_after=100, save_each=100)
 
 		else:
-			self.set_values(lr=0.1, alpha=0.001, gamma=2.0, p_norm=1, bsize=1415, max_itr=1000, emb_size=200, neg_ratio=1, save_after=50, save_each=50)
+			self.set_values(lr=0.1, alpha=0.001, gamma=2.0, p_norm=1, bsize=1415, max_itr=500, emb_size=100, neg_ratio=1, save_after=50, save_each=50)
 
 	def get_early_stopping_itrs(self):
 		self.es_itrs = []
