@@ -1,6 +1,11 @@
-main.py文件里的
-
+main.py文件里的：
 36行：dataset
 37行：model_name
-
 40行：param.edge_typa_num
+
+
+待解决问题：
+    simplE_ignr.py文件中的predict_v2函数，对于测试集中的某个三元组 (head,relation,tail)（注：这里的relation是无用信息）,
+    判断(head,tail)在图中所有类型的relations上的预测结果，
+    pred = self.sess.run(self.dissims, feed_dict={self.head: head, self.rel: rel, self.tail: tail})
+    这个预测公式不知是否正确，需比对论文。
